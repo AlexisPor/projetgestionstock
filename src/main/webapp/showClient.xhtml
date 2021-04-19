@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <h:head></h:head> <h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="80">
+		<ui:include src="/menubar.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="100">
+			<h:outputText value="Copyright 2021." />
+		</p:layoutUnit>
+		
+		<p:layoutUnit position="west" size="200"
+			style="width:200;border-width:1px;">
+			<ui:include src="/menu.xhtml" />
+		</p:layoutUnit>
+		
+		<p:layoutUnit position="east" size="200"
+			style="width:200;border-width:1px;">
+			<h:form>
+                <h:panelGrid>
+                        <h:outputLabel for="valeur" value="Valeur recherche :" />
+                        <p:inputText id="valeur" value="#{clientMBean.valueSearch}"
+                            required="true" label="valeur">
+
+                        </p:inputText>
+                        <p:selectOneMenu id="valeur2" value="#{clientMBean.typeSearch}"
+                            required="true" label="valeur2">
+                            <f:selectItem itemLabel="Select critere" itemValue=""
+                                noSelectionOption="true" />
+                            <f:selectItem itemLabel="Nom" itemValue="nom" />
+                            <f:selectItem itemLabel="Prenom" itemValue="prenom" />
+                            <f:selectItem itemLabel="Date" itemValue="date" />
+                        </p:selectOneMenu>
+                        <p:column headerText="Chercher">
+                            <h:commandButton actionListener="#{clientMBean.searchClient}"
+                                value="Search" />
+                        </p:column>
+                        <p:column headerText="All Search">
+                            <h:commandButton actionListener="#{clientMBean.allSearch}"
+                                value="All Search" />
+                        </p:column>
+                    </h:panelGrid>
+                </h:form>
+			
+			</p:layoutUnit>
+			
+		<p:layoutUnit position="center" style="width:200; border-width:0px;">
+
+			<h:form>
+				<p:growl showDetail="true"></p:growl>
+				<p:dataTable value="#{clientMBean.listCl}" var="client"
+					selection="#{clientMBean.selectedClient}" selectionMode="single"
+					rowKey="#{client.CIdclient}">
+
+					<p:column headerText="Login">
+						<h:outputText value="#{ client.CLoginclient}" />
+					</p:column>
+					<p:column headerText="Mot de passe">
+						<h:outputText value="#{client.CMotpasseclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Nom">
+						<h:outputText value="#{ client.CNomclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Prénom">
+						<h:outputText value="#{ client.CPrenomclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Civilité">
+						<h:outputText value="#{ client.CCiviliteclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Date de naissance">
+						<h:outputText value="#{ client.CDatenaissanceclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Numéro d'adresse">
+						<h:outputText value="#{ client.CNumeroadrclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Commune adresse">
+						<h:outputText value="#{ client.CCommuneadrclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Ville">
+						<h:outputText value="#{ client.CVilleadrclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Code postal">
+						<h:outputText value="#{ client.CCpadrclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Tél">
+						<h:outputText value="#{ client.CTelclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Fax">
+						<h:outputText value="#{ client.CFaxclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="GSM">
+						<h:outputText value="#{ client.CGsmclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Email">
+						<h:outputText value="#{ client.CEmailclient }"></h:outputText>
+					</p:column>
+					<p:column headerText="Supprimer">
+						<p:commandButton actionListener="#{clientMBean.deleteClient}"
+							value="supp" />
+					</p:column>
+
+					<p:column headerText="Editer">
+						<p:commandButton value="Edit" oncomplete="PF('dlgUpdate3').show()" update="myform3:panel3" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+			<h:form id="myform3">
+				<p:dialog id="dlgUpdate3" widgetVar="dlgUpdate3">
+					<p:panelGrid columns="2" id="panel3">
+
+						<h:outputText value="Login"></h:outputText>
+						<p:inputText value="#{clientMBean.selectedClient.CLoginclient}"></p:inputText>
+
+						<h:outputText value="Mot de passe"></h:outputText>
+						<p:inputText value="#{clientMBean.selectedClient.CMotpasseclient }"></p:inputText>
+
+						<h:outputText value="Nom"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CNomclient }"></p:inputText>
+
+						<h:outputText value="Prénom"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CPrenomclient }"></p:inputText>
+
+						<h:outputText value="Civilité"></h:outputText>
+						<p:inputText
+							value="#{ clientMBean.selectedClient.CCiviliteclient }"></p:inputText>
+
+						<h:outputText value="Date de naissance"></h:outputText>
+						<p:inputText
+							value="#{ clientMBean.selectedClient.CDatenaissanceclient }"></p:inputText>
+
+						<h:outputText value="Numéro d'adresse"></h:outputText>
+						<p:inputText
+							value="#{ clientMBean.selectedClient.CNumeroadrclient }"></p:inputText>
+
+						<h:outputText value="Commune adresse"></h:outputText>
+						<p:inputText
+							value="#{ clientMBean.selectedClient.CCommuneadrclient }"></p:inputText>
+
+						<h:outputText value="Ville"></h:outputText>
+						<p:inputText
+							value="#{ clientMBean.selectedClient.CVilleadrclient }"></p:inputText>
+
+						<h:outputText value="Code postal"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CCpadrclient }"></p:inputText>
+
+						<h:outputText value="Tél"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CTelclient }"></p:inputText>
+
+						<h:outputText value="Fax"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CFaxclient }"></p:inputText>
+
+						<h:outputText value="GSM"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CGsmclient }"></p:inputText>
+
+						<h:outputText value="Email"></h:outputText>
+						<p:inputText value="#{ clientMBean.selectedClient.CEmailclient }">
+						<f:validator validatorId="emailValidator" for="idemail" />
+					</p:inputText>
+						<h:commandButton actionListener="#{clientMBean.updateClient}"
+							value="Modifier" />
+
+
+					</p:panelGrid>
+				</p:dialog>
+			</h:form>
+		</p:layoutUnit>
+	</p:layout>
+
+
+</h:body> </html>

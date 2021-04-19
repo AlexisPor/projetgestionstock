@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <h:head></h:head> <h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="80">
+		<ui:include src="/menubar.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="100">
+			<h:outputText value="Copyright 2021." />
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="200"
+			style="width:200;border-width:1px;">
+			<ui:include src="/menu.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="east" size="200"
+			style="width:200;border-width:1px;">
+		<h:form>
+                <p:panel id="panel" header="Recherche par état" styleClass="p-mb-3">
+                    <h:panelGrid>
+                        <h:outputLabel for="valeur" value="Valeur recherche :" />
+                        <p:inputNumber id="valeur" value="#{commandeMBean.valueEtat}"
+                            label="valeur">
+
+                        </p:inputNumber>
+                        <p:column headerText="Chercher">
+                            <h:commandButton actionListener="#{commandeMBean.searchCommandeByEtat}"
+                                value="Search" />
+                        </p:column>
+                        <p:column headerText="All Search">
+                            <h:commandButton actionListener="#{commandeMBean.allSearch}"
+                                value="All Search" />
+                        </p:column>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form>
+                <p:panel id="panel" header="Recherche par date" styleClass="p-mb-3">
+                    <h:panelGrid>
+                        <h:outputLabel for="valeur2" value="Date debut:" />
+                        <p:calendar id="valeur2" value="#{commandeMBean.dDebut}"
+                             label="valeur2">
+
+                        </p:calendar>
+                        <h:outputLabel for="valeur3" value="Date fin:" />
+                        <p:calendar id="valeu3" value="#{commandeMBean.dFin}"
+                             label="valeur3">
+
+                        </p:calendar>
+                        <p:column headerText="Chercher">
+                            <h:commandButton actionListener="#{commandeMBean.searchCommandeByDate}"
+                                value="Search" />
+                        </p:column>
+                        <p:column headerText="All Search">
+                            <h:commandButton actionListener="#{commandeMBean.allSearch}"
+                                value="All Search" />
+                        </p:column>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" style="width:200; border-width:0px;">
+
+			<h:form>
+				<p:growl showDetail="true"></p:growl>
+				<p:dataTable value="#{commandeMBean.listC}" var="com"
+					selection="#{commandeMBean.selectedcom}" selectionMode="single"
+					rowKey="#{com.CIdcommande}">
+
+					<p:column headerText="Id">
+						<h:outputText value="#{com.CIdcommande}" />
+					</p:column>
+
+					<p:column headerText="Date">
+						<h:outputText value="#{com.CDatecommande}" />
+					</p:column>
+
+					<p:column headerText="Etat">
+						<h:outputText value="#{com.CEtatcommande}" />
+					</p:column>
+
+					<p:column headerText="Quantité">
+						<h:outputText value="#{com.CQtecommande}" />
+					</p:column>
+
+					<p:column headerText="Supprimer">
+						<p:commandButton actionListener="#{commandeMBean.deleteCommande}"
+							value="supp" />
+					</p:column>
+
+					<p:column headerText="Editer">
+						<p:commandButton value="Edit" oncomplete="PF('dlgUpdate4').show()"
+							update="myform4:panel4" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+			<h:form id="myform4">
+				<p:dialog id="dlgUpdate4" widgetVar="dlgUpdate4">
+					<p:panelGrid columns="2" id="panel4">
+
+						<h:outputText value="Date" />
+						<p:inputText value="#{commandeMBean.selectedcom.CDatecommande}"></p:inputText>
+
+						<h:outputText value="Client"></h:outputText>
+						<p:selectOneMenu
+							value="#{commandeMBean.selectedcom.TClient.CIdclient}">
+							<f:selectItems value="#{clientMBean.listCl}" var="clt"
+								itemLabel="#{clt.CNomclient}" itemValue="#{clt.CIdclient}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Produit"></h:outputText>
+						<p:selectOneMenu
+							value="#{commandeMBean.selectedcom.TProduit.PIdproduit}">
+							<f:selectItems value="#{produitMBean.listP}" var="pro"
+								itemLabel="#{pro.PMarqueproduit}" itemValue="#{pro.PIdproduit}" />
+						</p:selectOneMenu>
+
+						<h:outputText value="Quantité" />
+						<p:inputText value="#{commandeMBean.selectedcom.CQtecommande}"></p:inputText>
+
+						<h:outputText value="Etat" />
+						<p:inputText value="#{commandeMBean.selectedcom.CEtatcommande}"></p:inputText>
+
+						<h:commandButton
+							actionListener="#{commandeMBean.updateCommande()}"
+							value="Modifier" />
+
+
+					</p:panelGrid>
+				</p:dialog>
+			</h:form>
+		</p:layoutUnit>
+	</p:layout>
+
+
+</h:body> </html>

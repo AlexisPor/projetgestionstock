@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <h:head></h:head> <body>
+<h1 align="center">Veuillez vous connecter</h1> <h:form>
+	<p:growl showDetail="true" id="msg"></p:growl>
+		<center>
+	<p:panel header="Authentification">
+		<p:panelGrid columns="2">
+			<h:outputText value="Username" />
+			<p:inputText value="#{stockUserMBean.tstock.SUsername}"
+				required="true" requiredMessage="Le champ est obligatoire"></p:inputText>
+			<h:outputText value="Password" />
+			<p:inputText value="#{stockUserMBean.tstock.SPassword}"
+				required="true" requiredMessage="Le champ est obligatoire"></p:inputText>
+			<p:commandButton value="Valider" action="#{stockUserMBean.login}"></p:commandButton>
+			<p:commandButton value="Annuler" type="reset"></p:commandButton>
+		</p:panelGrid>
+	</p:panel>
+			</center>
+</h:form> </body> </html>

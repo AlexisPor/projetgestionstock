@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="80">
+		<ui:include src="/menubar.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="100">
+			<h:outputText value="Copyright 2021." />
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="200"
+			style="width:200;border-width:1px;">
+			<ui:include src="/menu.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="east" size="200"
+			style="width:200;border-width:1px;">
+		</p:layoutUnit>
+		<p:layoutUnit position="center" style="width:200; border-width:0px;">
+
+			<h:form>
+				<p:growl showDetail="true"></p:growl>
+				<p:panelGrid columns="2">
+		
+					<h:outputText value="Marque produit"></h:outputText>
+					<p:inputText value="#{ produitMBean.prod.PMarqueproduit }"></p:inputText>
+
+					<h:outputText value="Modèle produit"></h:outputText>
+					<p:inputText value="#{ produitMBean.prod.PModeleproduit }"></p:inputText>
+
+					<h:outputText value="Quantité Produit"></h:outputText>
+					<p:inputText value="#{ produitMBean.prod.PQteproduit }"></p:inputText>
+					
+					<h:outputText value="Categorie"></h:outputText>
+					<p:selectOneMenu value="#{produitMBean.prod.TCategorie.CIdcateg}">
+					<f:selectItems value="#{categorieMBean.listCa}" var="ctg" itemLabel="#{ctg.CLibellecateg}" itemValue="#{ctg.CCodecateg}"/>
+					</p:selectOneMenu>
+					
+					<h:outputText value="Prix unitaire produit"></h:outputText>
+					<p:inputText value="#{ produitMBean.prod.PPuproduit }"></p:inputText>
+					
+					<h:outputText value="Configue du produit"></h:outputText>
+					<p:inputText value="#{ produitMBean.prod.PConfigproduit }"></p:inputText>
+					
+					<h:outputText value="Design du produit"></h:outputText>
+					<p:inputText value="#{ produitMBean.prod.PDesigproduit }"></p:inputText>
+
+					<p:commandButton value="Ajouter"
+						actionListener="#{ produitMBean.addProduit }"></p:commandButton>
+				</p:panelGrid>
+			</h:form>
+
+
+		</p:layoutUnit>
+	</p:layout>
+
+
+</h:body>
+
+</html>

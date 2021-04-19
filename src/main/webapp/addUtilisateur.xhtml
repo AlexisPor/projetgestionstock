@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <h:head></h:head> <h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="80">
+		<ui:include src="/menubar.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="100">
+			<h:outputText value="Copyright 2021." />
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="200"
+			style="width:200;border-width:1px;">
+		</p:layoutUnit>
+		<p:layoutUnit position="east" size="200"
+			style="width:200;border-width:1px;">
+		</p:layoutUnit>
+		<p:layoutUnit position="center" style="width:200; border-width:0px;">
+
+			<h:form>
+				<p:panel header="Ajout d'utilisateur">
+					<h:messages style="color:red" />
+					<p:growl showDetail="true"></p:growl>
+					<p:panelGrid>
+
+						<h:outputText value="Username"></h:outputText>
+						<p:inputText value="#{stockUserMBean.tstock.SUsername}"></p:inputText>
+
+						<h:outputText value="Password"></h:outputText>
+						<p:password value="#{stockUserMBean.tstock.SPassword}" />
+
+						<p:selectOneRadio id="console"
+							value="#{stockUserMBean.tstock.SRole}" unselectable="true">
+							<f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
+							<f:selectItem itemLabel="Admin" itemValue="Admin" />
+						</p:selectOneRadio>
+
+						<p:commandButton value="Ajouter"
+							actionListener="#{stockUserMBean.addUtilisateur}"></p:commandButton>
+					</p:panelGrid>
+				</p:panel>
+			</h:form>
+
+
+		</p:layoutUnit>
+	</p:layout>
+
+
+</h:body> </html>

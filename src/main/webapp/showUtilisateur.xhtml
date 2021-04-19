@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <h:head></h:head> <h:body>
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="80">
+		<ui:include src="/menubar.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="100">
+			<h:outputText value="Copyright 2021." />
+		</p:layoutUnit>
+		<p:layoutUnit position="west" size="200"
+			style="width:200;border-width:1px;">
+			<ui:include src="/menu.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="east" size="200"
+			style="width:200;border-width:1px;">
+		</p:layoutUnit>
+		<p:layoutUnit position="center" style="width:200; border-width:0px;">
+
+			<h:form>
+				<p:growl showDetail="true"></p:growl>
+				<p:dataTable value="#{stockUserMBean.listTS}" var="stocku"
+					selection="#{stockUserMBean.selectTStock}" selectionMode="single"
+					rowKey="#{stocku.SIduser}">
+
+					<p:column headerText="Username">
+						<h:outputText value="#{stocku.SUsername}" />
+					</p:column>
+
+					<p:column headerText="Password">
+						<h:outputText value="#{stocku.SPassword}" />
+					</p:column>
+					
+					<p:column headerText="Role">
+						<h:outputText value="#{stocku.SRole}" />
+					</p:column>
+
+					<p:column headerText="Supprimer">
+						<p:commandButton
+							actionListener="#{stockUserMBean.deleteUtilisateur}" value="supp" />
+					</p:column>
+
+					<p:column headerText="Editer">
+						<p:commandButton value="Edit" oncomplete="PF('stuUpdate').show()" update="myform:panel"/>
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+			<h:form id="myform">
+				<p:dialog id="stuUpdate" widgetVar="stuUpdate">
+					<p:panelGrid columns="2" id="panel">
+
+						<h:outputText value="Username" />
+						<p:inputText value="#{stockUserMBean.selectTStock.SUsername}"></p:inputText>
+
+						<h:outputText value="Password" />
+        				<p:password value="#{stockUserMBean.selectTStock.SPassword}"/>
+						
+						<h:outputText value="Role" />
+						<p:inputText value="#{stockUserMBean.selectTStock.SRole}"></p:inputText>
+
+						<h:commandButton
+							actionListener="#{stockUserMBean.updateUtilisateur}"
+							value="Modifier" />
+
+
+					</p:panelGrid>
+				</p:dialog>
+			</h:form>
+		</p:layoutUnit>
+	</p:layout>
+
+
+</h:body> </html>
